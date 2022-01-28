@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CylinderShape" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.0431373, 0.94902, 0.886275, 1 )
+
+[sub_resource type="CylinderMesh" id=3]
+material = SubResource( 2 )
+
+[sub_resource type="CylinderMesh" id=4]
+
+[node name="Switch" type="KinematicBody"]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="SwitchBody" type="MeshInstance" parent="."]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="SwitchBase" type="MeshInstance" parent="."]
+transform = Transform( 1.59183, 0, 0, 0, 0.150065, 0, 0, 0, 1.44999, 0, -0.853358, 0 )
+mesh = SubResource( 4 )
+material/0 = null

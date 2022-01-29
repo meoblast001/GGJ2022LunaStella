@@ -41,12 +41,10 @@ light_indirect_energy = 0.1
 transform = Transform( 1, 0, 0, 0, 0.995346, -0.0963669, 0, 0.0963669, 0.995346, 0, 1, 8.877 )
 
 [node name="Magnet" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41928, 0.969185, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41928, -1.56384, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41928, -1.59291, 0 )
-axis_lock_linear_z = true
-magnetInnerBound = 2.0
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.930549, -0.397309, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 1.81772, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )

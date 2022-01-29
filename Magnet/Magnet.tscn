@@ -7,6 +7,7 @@
 extents = Vector3( 1, 0.40553, 1 )
 
 [node name="Magnet" type="RigidBody"]
+axis_lock_linear_z = true
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

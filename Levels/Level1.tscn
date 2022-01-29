@@ -50,7 +50,7 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.183, -2.45532, -0.193134 )
 
 [node name="Door" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 2.62362, -0.80818, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62362, -2.4201, -1.04214 )
 
 [node name="Goal" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0 )

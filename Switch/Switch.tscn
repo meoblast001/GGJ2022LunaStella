@@ -105,10 +105,10 @@ anims/StepOff = SubResource( 7 )
 anims/StepOn = SubResource( 8 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
-transform = Transform( 0.702499, 0, 0, 0, 0.0506865, 0, 0, 0, 0.820607, 0, 0.0328424, 0 )
+transform = Transform( 0.702499, 0, 0, 0, 0.0542331, 0, 0, 0, 0.820607, 0, 0.0328424, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.19127, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1.19127, 0, 0, 0, 1.47763, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 9 )
 
 [connection signal="body_entered" from="." to="." method="_on_Switch_body_entered"]

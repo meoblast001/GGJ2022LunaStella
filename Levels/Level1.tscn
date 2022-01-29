@@ -39,11 +39,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 8.877 )
 
 [node name="Magnet" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41928, 0.969185, 0 )
-axis_lock_linear_z = true
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
-magnetInnerBound = 2.0
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 1.81772, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )

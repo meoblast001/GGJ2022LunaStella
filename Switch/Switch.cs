@@ -1,13 +1,30 @@
 using Godot;
 
-public class Switch : KinematicBody {
+namespace Switch {
+  public class Switch : Area {
 	
-  [Signal] OpenDoor;
+	[Signal]
+	delegate void OpenDoor(bool isDoorOpen);
 
-  private bool isPressed = false;
+	private bool isPressed = false;
 
-  public override void _Ready() {
+	private void _on_Switch_body_shape_entered(RID body_rid, object body, int body_shape_index, int local_shape_index) {
+	  this.isPressed = true;
+	  EmitSignal("OpenDoor", this.isPressed);
+	}
 	
+	private void _on_Switch_body_shape_exited(RID body_rid, object body, int body_shape_index, int local_shape_index) {
+	  this.isPressed = false;
+	  EmitSignal("OpenDoor", this.isPressed);
+	}
   }
-
 }
+
+
+
+
+
+
+
+
+

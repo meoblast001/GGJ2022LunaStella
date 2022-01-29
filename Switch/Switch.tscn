@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Switch/Switch.cs" type="Script" id=1]
 
-[sub_resource type="CylinderShape" id=1]
+[sub_resource type="BoxShape" id=5]
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.0431373, 0.94902, 0.886275, 1 )
@@ -12,11 +12,12 @@ material = SubResource( 2 )
 
 [sub_resource type="CylinderMesh" id=4]
 
-[node name="Switch" type="KinematicBody"]
+[node name="Switch" type="Area"]
 script = ExtResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+[node name="CollisionPolygon" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.46686, 0, 0, 0, 1, 0, -0.407225, 0 )
+shape = SubResource( 5 )
 
 [node name="SwitchBody" type="MeshInstance" parent="."]
 mesh = SubResource( 3 )
@@ -26,3 +27,6 @@ material/0 = null
 transform = Transform( 1.59183, 0, 0, 0, 0.150065, 0, 0, 0, 1.44999, 0, -0.853358, 0 )
 mesh = SubResource( 4 )
 material/0 = null
+
+[connection signal="body_shape_entered" from="." to="." method="_on_Switch_body_shape_entered"]
+[connection signal="body_shape_exited" from="." to="." method="_on_Switch_body_shape_exited"]

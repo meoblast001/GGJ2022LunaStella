@@ -3,7 +3,6 @@ using Godot;
 namespace Door {
   public class Door : KinematicBody {
 
-	[Export] private float transformFactor = 1.5f;
 	private bool isOpen = false;
 	
 	private void _on_Switch_OpenDoor(bool isDoorOpen) {
@@ -14,7 +13,7 @@ namespace Door {
 		} else {
 			this.isOpen = false;
 			//TranslateObjectLocal(-Transform.basis.y * (this.transformFactor));
-			GetNode<AnimationPlayer>("AnimationPlayer").Play("Open (copy)");
+			GetNode<AnimationPlayer>("AnimationPlayer").Play("Close");
 		}
 	}
 

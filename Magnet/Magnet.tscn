@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 0.40553, 1 )
 
-[node name="Magnet" type="RigidBody"]
+[node name="Magnet" type="RigidBody" groups=["magnet"]]
 axis_lock_linear_z = true
 script = ExtResource( 1 )
 

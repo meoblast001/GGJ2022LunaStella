@@ -29,13 +29,14 @@ environment = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 8.877 )
 
 [node name="Magnet" parent="." instance=ExtResource( 1 )]
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41928, 0.969185, 0 )
+axis_lock_linear_z = true
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )
+transform = Transform( 1.81772, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 1 )
@@ -45,9 +46,9 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Switch" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.07527, -1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.90495, -1.5, 0 )
 
 [node name="Door" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 4.15444, -0.80818, 0 )
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 2.62362, -0.80818, 0 )
 
 [connection signal="OpenDoor" from="Switch" to="Door" method="_on_Switch_OpenDoor"]

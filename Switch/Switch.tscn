@@ -28,5 +28,5 @@ transform = Transform( 1.59183, 0, 0, 0, 0.150065, 0, 0, 0, 1.44999, 0, -0.85335
 mesh = SubResource( 4 )
 material/0 = null
 
-[connection signal="body_shape_entered" from="." to="." method="_on_Switch_body_shape_entered"]
-[connection signal="body_shape_exited" from="." to="." method="_on_Switch_body_shape_exited"]
+[connection signal="body_entered" from="." to="." method="_on_Switch_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Switch_body_exited"]

@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Magnet/Magnet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Switch/Switch.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Door/Door.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Goal/Goal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Floor/Floor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Floor/Wall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://MagneticWall/MagneticWall.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ProceduralSky" id=3]
 
@@ -35,16 +38,19 @@ light_energy = 0.2
 light_indirect_energy = 0.1
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 8.877 )
+transform = Transform( 1, 0, 0, 0, 0.995346, -0.0963669, 0, 0.0963669, 0.995346, 0, 1, 8.877 )
 
 [node name="Magnet" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41928, 0.969185, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.41928, -1.59291, 0 )
+axis_lock_linear_z = true
+magnetInnerBound = 2.0
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 1.81772, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0 )
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 1 )
@@ -54,12 +60,36 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Switch" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.183, -2.45532, -0.193134 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4818, -1.26615, -0.193134 )
 
 [node name="Door" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62362, -2.4201, -1.04214 )
 
 [node name="Goal" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.97451, 4.69843, 0 )
+
+[node name="Floor" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0 )
+
+[node name="Floor2" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 7.77312, 2.18132, -4.14267 )
+
+[node name="Floor3" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.634886, 0, 0, 0, 0.609287, 0, 0, 0, 0.5, -3.50781, 8.34458, -4.14267 )
+
+[node name="Floor4" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -9.90705, -1.25128, -2.62415 )
+
+[node name="Wall" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -2.5, -1.63357 )
+
+[node name="Wall2" parent="." instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.96442, -2.5, -1.63357 )
+
+[node name="Wall3" parent="." instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.9471, -2.5, -1.63357 )
+
+[node name="MagneticWall" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.0395471, 7.16496, -0.748778 )
 
 [connection signal="OpenDoor" from="Switch" to="Door" method="_on_Switch_OpenDoor"]

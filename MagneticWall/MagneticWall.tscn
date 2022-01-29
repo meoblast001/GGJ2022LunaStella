@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/magnetic_zone/magnetic_zone_ORM.png" type="Texture" id=1]
+[ext_resource path="res://Assets/magnetic_zone/magnetic_zone_Normal.png" type="Texture" id=2]
+[ext_resource path="res://Assets/magnetic_zone/magnetic_zone_BC.png" type="Texture" id=3]
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="CubeMesh" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 3 )
+metallic_texture = ExtResource( 1 )
+metallic_texture_channel = 2
+roughness_texture = ExtResource( 1 )
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 2 )
+ao_enabled = true
+ao_light_affect = 0.0
+ao_texture = ExtResource( 1 )
+ao_on_uv2 = false
+ao_texture_channel = 0
+
+[node name="MagneticWall" type="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.722118, 6.64632, -0.0798321 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29953, 0 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )

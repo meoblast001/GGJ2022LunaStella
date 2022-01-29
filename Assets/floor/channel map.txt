@@ -1,0 +1,2 @@
+BCR = base color (RGB) + roughness (Alpha)
+NAO = Normal (RGB) + Ambient Occlusion (Alpha)

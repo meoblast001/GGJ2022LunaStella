@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Door/Door.cs" type="Script" id=1]
 [ext_resource path="res://Assets/door/door.dae" type="PackedScene" id=2]
+[ext_resource path="res://Assets/586424__muy2149972__garage-door_open.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/586424__muy2149972__garage-door_close.ogg" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=8]
 resource_name = "Close"
+step = 0.2
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("DoorVisuals:translation:y")
 tracks/0/interp = 1
@@ -13,7 +16,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "points": PoolRealArray( 6, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.5 )
+"times": PoolRealArray( 0, 1 )
 }
 
 [sub_resource type="Animation" id=7]
@@ -154,7 +157,7 @@ anims/Open = SubResource( 7 )
 anims/RESET = SubResource( 6 )
 
 [node name="DoorVisuals" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00126, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 motion/sync_to_physics = true
 
 [node name="CollisionShape" type="CollisionShape" parent="DoorVisuals"]
@@ -166,3 +169,11 @@ transform = Transform( 4.37114e-08, -3.82137e-15, -1, -8.74228e-08, -1, 0, -1, 8
 
 [node name="door2" parent="DoorVisuals" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="AudioOpen" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+unit_db = 15.0
+
+[node name="AudioClose" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_db = 15.0

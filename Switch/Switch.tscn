@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Switch/Switch.cs" type="Script" id=1]
 [ext_resource path="res://Assets/button/button_top.dae" type="PackedScene" id=2]
 [ext_resource path="res://Assets/button/button_body.dae" type="PackedScene" id=3]
+[ext_resource path="res://Assets/259867__zekifoxx__button-press_on.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Assets/259867__zekifoxx__button-press_off.ogg" type="AudioStream" id=5]
 
 [sub_resource type="BoxShape" id=5]
 
@@ -111,5 +113,17 @@ transform = Transform( 0.702499, 0, 0, 0, 0.0542331, 0, 0, 0, 0.820607, 0, 0.032
 transform = Transform( 1.19127, 0, 0, 0, 1.47763, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 9 )
 
+[node name="AudioOn" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+unit_db = 15.0
+max_db = 6.0
+
+[node name="AudioOff" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
+unit_db = 15.0
+max_db = 6.0
+
 [connection signal="body_entered" from="." to="." method="_on_Switch_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Switch_body_exited"]
+[connection signal="finished" from="AudioOn" to="." method="_on_AudioOn_finished"]
+[connection signal="finished" from="AudioOff" to="." method="_on_AudioOff_finished"]

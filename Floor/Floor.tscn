@@ -24,7 +24,7 @@ surfaces/0 = {
 [node name="Spatial" type="StaticBody"]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.64029, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.951026, 0 )
 shape = SubResource( 1 )
 
 [node name="SM_floor_2x2m_a" type="MeshInstance" parent="."]

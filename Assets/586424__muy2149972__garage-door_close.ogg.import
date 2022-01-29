@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/586424__muy2149972__garage-door_close.ogg-de20b61df03a9643f39a1572493d9501.oggstr"
+
+[deps]
+
+source_file="res://Assets/586424__muy2149972__garage-door_close.ogg"
+dest_files=[ "res://.import/586424__muy2149972__garage-door_close.ogg-de20b61df03a9643f39a1572493d9501.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

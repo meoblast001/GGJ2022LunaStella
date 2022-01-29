@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using HUD;
 using Input;
 using Magnetism;
 
@@ -11,31 +12,59 @@ namespace Player {
       Jump
     }
 
+    private enum Direction {
+      Left,
+      Right
+    }
+
     [Export] private float playerSpeed;
     [Export] private float jumpSpeed;
     [Export] private NodePath magneticAreaPath;
+    [Export] private NodePath magnetPickupAreaPath;
     [Export] private NodePath meshPath;
+    [Export] private NodePath magnetHoldPath;
     [Export] private float magnetInnerBound;
 
 
     private float gravity;
     private float yVelocity = 0;
     private Area magneticArea;
+    private Area magnetPickupArea;
     private Spatial mesh;
+    private Spatial magnetHold;
     private AnimationPlayer animationPlayer;
     private AnimationState animationState = (AnimationState)(-1);
     private bool attract = false;
+    private Direction direction = Direction.Left;
+
+    private Magnet.Magnet magnet = null;
+    private RigidBody.ModeEnum originalMagnetRigidBodyMode;
 
     public override void _Ready() {
       this.gravity = -((float)ProjectSettings.GetSetting("physics/3d/default_gravity"));
       this.magneticArea = GetNode<Area>(this.magneticAreaPath);
+      this.magnetPickupArea = GetNode<Area>(this.magnetPickupAreaPath);
       this.mesh = GetNode<Spatial>(this.meshPath);
+      this.magnetHold = GetNode<Spatial>(this.magnetHoldPath);
       this.animationPlayer = this.mesh.GetNode<AnimationPlayer>("AnimationPlayer");
 
       SetAnimationState(AnimationState.Idle);
+      Hud.Singleton.PlayerIsAttracting = false;
+    }
+
+    public override void _Process(float delta) {
+      base._Process(delta);
+
+      if (this.magnet != null) {
+        this.magnet.GlobalTransform
+          = new Transform(this.magnet.GlobalTransform.basis, this.magnetHold.GlobalTransform.origin);
+        this.magnet.Rotation = Vector3.Zero;
+      }
     }
 
     public override void _PhysicsProcess(float delta) {
+      base._PhysicsProcess(delta);
+
       var movement = Godot.Input.GetVector(
         ActionTypes.MoveLeft,
         ActionTypes.MoveRight,
@@ -53,10 +82,13 @@ namespace Player {
         SetAnimationState(AnimationState.Idle);
       }
 
-      if (movement.x > 0)
+      if (movement.x > 0) {
         this.mesh.LookAt(this.Transform.origin + Vector3.Left, Vector3.Up);
-      else if (movement.x < 0)
+        this.direction = Direction.Right;
+      } else if (movement.x < 0) {
         this.mesh.LookAt(this.Transform.origin + Vector3.Right, Vector3.Up);
+        this.direction = Direction.Left;
+      }
 
       MoveAndSlide(new Vector3(movement.x * this.playerSpeed, yVelocity, 0f), Vector3.Up);
       if (this.attract) {
@@ -71,11 +103,24 @@ namespace Player {
         if (this.attract) {
           Repell();
           this.attract = false;
+          Hud.Singleton.PlayerIsAttracting = false;
         }
         else {
           this.attract = true;
+          Hud.Singleton.PlayerIsAttracting = true;
         }
+      } else if (@event.IsActionPressed(ActionTypes.Throw)) {
+        Throw();
       }
+    }
+
+    public void OnBodyEnterMagnetPickupArea(Node body) {
+      if (!body.IsInGroup(Groups.Magnet))
+        return;
+
+      this.magnet = (Magnet.Magnet) body;
+      this.originalMagnetRigidBodyMode = this.magnet.Mode;
+      this.magnet.Mode = RigidBody.ModeEnum.Static;
     }
 
     private void Jump() {
@@ -83,6 +128,17 @@ namespace Player {
         this.yVelocity = this.jumpSpeed;
         SetAnimationState(AnimationState.Jump);
       }
+    }
+
+    private void Throw() {
+      if (this.magnet == null)
+        return;
+
+      this.magnet.Mode = this.originalMagnetRigidBodyMode;
+      this.magnet.AddCentralForce(this.direction == Direction.Left
+        ? new Vector3(-1f, 1f, 0f * 2000f)
+        : new Vector3(1f, 1f, 0f) * 2000f);
+      this.magnet = null;
     }
 
     private void SetAnimationState(AnimationState newState) {
@@ -114,7 +170,7 @@ namespace Player {
           continue;
         var node = (Spatial)body;
         switch (body) {
-          case IMagnetic magnetic:;
+          case IMagnetic magnetic:
             var forceDirection = this.GlobalTransform.origin - node.GlobalTransform.origin;
             magnetic.ApplyRepellingForce(-forceDirection);
             break;

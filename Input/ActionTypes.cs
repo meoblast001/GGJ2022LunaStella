@@ -6,5 +6,6 @@ namespace Input {
     public const string MoveDown = "move_down";
     public const string Jump = "jump";
     public const string Interact = "interact";
+    public const string Throw = "throw";
   }
 }

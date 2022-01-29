@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,9 @@ height = 2.44551
 [sub_resource type="SphereShape" id=3]
 radius = 12.0
 
+[sub_resource type="SphereShape" id=4]
+radius = 2.0
+
 [node name="Player" type="KinematicBody" groups=["player"]]
 axis_lock_motion_z = true
 move_lock_z = true
@@ -17,7 +20,9 @@ script = ExtResource( 1 )
 playerSpeed = 8.0
 jumpSpeed = 7.5
 magneticAreaPath = NodePath("MagneticArea")
+magnetPickupAreaPath = NodePath("MagnetPickupArea")
 meshPath = NodePath("Player")
+magnetHoldPath = NodePath("Player/MagnetHoldSlot")
 magnetInnerBound = 2.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -27,8 +32,20 @@ shape = SubResource( 1 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
+[node name="MagnetHoldSlot" type="Spatial" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0.75 )
+
 [node name="MagneticArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="MagneticArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 shape = SubResource( 3 )
+
+[node name="MagnetPickupArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="MagnetPickupArea"]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="MagnetPickupArea" to="." method="OnBodyEnterMagnetPickupArea"]

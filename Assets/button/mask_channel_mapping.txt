@@ -1,0 +1,3 @@
+Red channel = masks for glowing elements
+Green channel = masks for button (could change color)
+Blue channel = metallic

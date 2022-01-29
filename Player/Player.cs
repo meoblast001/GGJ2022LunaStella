@@ -90,7 +90,6 @@ namespace Player {
           default:
             return;
         }
-        GD.Print($"Animation: {animationName}");
         this.animationPlayer.Play(animationName);
       }
     }

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/PlayerRun.tres" type="Animation" id=1]
+[ext_resource path="res://Assets/PlayerJump.tres" type="Animation" id=2]
+[ext_resource path="res://Assets/Player.dae" type="PackedScene" id=3]
+
+[node name="Player" instance=ExtResource( 3 )]
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/PlayerJump = ExtResource( 2 )
+anims/PlayerRun = ExtResource( 1 )

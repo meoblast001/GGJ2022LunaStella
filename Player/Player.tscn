@@ -18,6 +18,7 @@ playerSpeed = 8.0
 jumpSpeed = 7.5
 magneticAreaPath = NodePath("MagneticArea")
 meshPath = NodePath("Player")
+magnetHoldPath = NodePath("Player/MagnetHoldSlot")
 magnetInnerBound = 2.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -26,6 +27,9 @@ shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+
+[node name="MagnetHoldSlot" type="Spatial" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24742, 0.350133 )
 
 [node name="MagneticArea" type="Area" parent="."]
 

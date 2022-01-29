@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using HUD;
 using Input;
 using Magnetism;
 
@@ -15,6 +16,7 @@ namespace Player {
     [Export] private float jumpSpeed;
     [Export] private NodePath magneticAreaPath;
     [Export] private NodePath meshPath;
+    [Export] private NodePath magnetHoldPath;
     [Export] private float magnetInnerBound;
 
 
@@ -22,6 +24,7 @@ namespace Player {
     private float yVelocity = 0;
     private Area magneticArea;
     private Spatial mesh;
+    private Spatial magnetHold;
     private AnimationPlayer animationPlayer;
     private AnimationState animationState = (AnimationState)(-1);
     private bool attract = false;
@@ -30,9 +33,11 @@ namespace Player {
       this.gravity = -((float)ProjectSettings.GetSetting("physics/3d/default_gravity"));
       this.magneticArea = GetNode<Area>(this.magneticAreaPath);
       this.mesh = GetNode<Spatial>(this.meshPath);
+      this.magnetHold = GetNode<Spatial>(this.magnetHoldPath);
       this.animationPlayer = this.mesh.GetNode<AnimationPlayer>("AnimationPlayer");
 
       SetAnimationState(AnimationState.Idle);
+      Hud.Singleton.PlayerIsAttracting = false;
     }
 
     public override void _PhysicsProcess(float delta) {
@@ -71,9 +76,11 @@ namespace Player {
         if (this.attract) {
           Repell();
           this.attract = false;
+          Hud.Singleton.PlayerIsAttracting = false;
         }
         else {
           this.attract = true;
+          Hud.Singleton.PlayerIsAttracting = true;
         }
       }
     }
@@ -114,7 +121,7 @@ namespace Player {
           continue;
         var node = (Spatial)body;
         switch (body) {
-          case IMagnetic magnetic:;
+          case IMagnetic magnetic:
             var forceDirection = this.GlobalTransform.origin - node.GlobalTransform.origin;
             magnetic.ApplyRepellingForce(-forceDirection);
             break;

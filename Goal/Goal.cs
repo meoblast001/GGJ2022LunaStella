@@ -4,6 +4,9 @@ using HUD;
 public class Goal : Area {
   [Export] private NodePath timerPath;
 
+  [Signal]
+	delegate void GameWin();
+
   private Timer timer;
   private bool goalReached = false;
 
@@ -17,6 +20,7 @@ public class Goal : Area {
     if (this.goalReached || !node.IsInGroup(Groups.Player))
       return;
     this.goalReached = true;
+    EmitSignal("GameWin");
     Hud.Singleton.IsLevelCompleteLabelVisible = true;
     this.timer.Start();
   }

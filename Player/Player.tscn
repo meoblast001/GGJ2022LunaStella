@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/572459__nhill2003__jump-land.wav" type="AudioStream" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.578185
@@ -23,6 +24,7 @@ magneticAreaPath = NodePath("MagneticArea")
 magnetPickupAreaPath = NodePath("MagnetPickupArea")
 meshPath = NodePath("Player")
 magnetHoldPath = NodePath("Player/MagnetHoldSlot")
+jumpAudioPath = NodePath("JumpAudio")
 magnetInnerBound = 2.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -47,5 +49,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="MagnetPickupArea"]
 shape = SubResource( 4 )
+
+[node name="JumpAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="body_entered" from="MagnetPickupArea" to="." method="OnBodyEnterMagnetPickupArea"]

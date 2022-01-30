@@ -23,6 +23,7 @@ namespace Player {
     [Export] private NodePath magnetPickupAreaPath;
     [Export] private NodePath meshPath;
     [Export] private NodePath magnetHoldPath;
+    [Export] private NodePath jumpAudioPath;
     [Export] private float magnetInnerBound;
 
     private float gravity;
@@ -31,6 +32,7 @@ namespace Player {
     private Area magnetPickupArea;
     private Spatial mesh;
     private Spatial magnetHold;
+    private AudioStreamPlayer3D jumpAudio;
     private AnimationPlayer animationPlayer;
     private AnimationState animationState = (AnimationState)(-1);
     private bool attract = false;
@@ -45,6 +47,7 @@ namespace Player {
       this.magnetPickupArea = GetNode<Area>(this.magnetPickupAreaPath);
       this.mesh = GetNode<Spatial>(this.meshPath);
       this.magnetHold = GetNode<Spatial>(this.magnetHoldPath);
+      this.jumpAudio = GetNode<AudioStreamPlayer3D>(this.jumpAudioPath);
       this.animationPlayer = this.mesh.GetNode<AnimationPlayer>("AnimationPlayer");
 
       SetAnimationState(AnimationState.Idle);
@@ -127,6 +130,8 @@ namespace Player {
       if (IsOnFloor()) {
         this.yVelocity = this.jumpSpeed;
         SetAnimationState(AnimationState.Jump);
+        if (!this.jumpAudio.Playing)
+          this.jumpAudio.Play();
       }
     }
 

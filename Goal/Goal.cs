@@ -20,7 +20,7 @@ public class Goal : Area {
     if (this.goalReached || !node.IsInGroup(Groups.Player))
       return;
     this.goalReached = true;
-    EmitSignal("GameWin");
+    EmitSignal(nameof(GameWin));
     Hud.Singleton.IsLevelCompleteLabelVisible = true;
     this.timer.Start();
   }

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Goal/Goal.cs" type="Script" id=1]
+[ext_resource path="res://Goal/GoalMaterial.tres" type="Material" id=2]
 
 [sub_resource type="SphereShape" id=1]
 radius = 0.75
@@ -18,7 +19,7 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

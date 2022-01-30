@@ -1,28 +1,66 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Goal/Goal.cs" type="Script" id=1]
-[ext_resource path="res://Goal/GoalMaterial.tres" type="Material" id=2]
+[ext_resource path="res://Assets/shape2.png" type="Texture" id=3]
 
-[sub_resource type="SphereShape" id=1]
-radius = 0.75
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 0.334842, 1.47538, 0.275009 )
 
-[sub_resource type="SphereMesh" id=2]
-radius = 0.5
-height = 1.0
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.534351, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 0.2, 1.5, 0.2 )
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.15
+angular_velocity = 45.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 2.0
+radial_accel_random = 1.0
+angle = 30.0
+angle_random = 1.0
+scale = 0.75
+scale_curve = SubResource( 6 )
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+flags_unshaded = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 1, 0, 1 )
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="QuadMesh" id=4]
+material = SubResource( 7 )
 
 [node name="Goal" type="Area"]
 script = ExtResource( 1 )
 timerPath = NodePath("Timer")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-material/0 = ExtResource( 2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.334481, 0, 0 )
+shape = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="Particles" type="Particles" parent="."]
+amount = 200
+randomness = 1.0
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 4 )
 
 [connection signal="body_entered" from="." to="." method="OnBodyEnter"]

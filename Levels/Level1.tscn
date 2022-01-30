@@ -203,7 +203,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.5, 1.84651, 0, -1.09363 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93795, 0.563205, 0 )
 
 [node name="Goal" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.97154, 6.35418, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.84062, 6.35418, 0 )
 
 [node name="Switch" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -8.12424, 1.57699, 0 )

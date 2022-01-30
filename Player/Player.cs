@@ -25,7 +25,6 @@ namespace Player {
     [Export] private NodePath magnetHoldPath;
     [Export] private float magnetInnerBound;
 
-
     private float gravity;
     private float yVelocity = 0;
     private Area magneticArea;
@@ -92,7 +91,9 @@ namespace Player {
 
       MoveAndSlide(new Vector3(movement.x * this.playerSpeed, yVelocity, 0f), Vector3.Up);
       if (this.attract) {
-        Attract();
+        Attract(delta);
+      } else {
+        Repel(delta);
       }
     }
 
@@ -101,7 +102,6 @@ namespace Player {
         Jump();
       else if (@event.IsActionPressed(ActionTypes.Interact)) {
         if (this.attract) {
-          Repell();
           this.attract = false;
           Hud.Singleton.PlayerIsAttracting = false;
         }
@@ -163,37 +163,62 @@ namespace Player {
       }
     }
 
-    private void Repell() {
+    private void Repel(float delta) {
       var bodies = this.magneticArea.GetOverlappingBodies();
       foreach (var body in bodies) {
         if (body == this)
           continue;
         var node = (Spatial)body;
         switch (body) {
-          case IMagnetic magnetic:
-            var forceDirection = this.GlobalTransform.origin - node.GlobalTransform.origin;
-            magnetic.ApplyRepellingForce(-forceDirection);
+          case IMagnetic magnetic: {
+            var forceDirection = (this.GlobalTransform.origin - node.GlobalTransform.origin).Normalized();
+            magnetic.ApplyRepellingForce(-forceDirection, delta);
             break;
+          }
+          case IPassiveMagnetic passiveMagnetic: {
+            var forceDirection = (node.GlobalTransform.origin - this.GlobalTransform.origin).Normalized();
+            this.ApplyRepellingForce(-forceDirection, passiveMagnetic.RepelStrength, delta);
+            break;
+          }
         }
       }
     }
 
-    private void Attract() {
+    private void Attract(float delta) {
       var bodies = this.magneticArea.GetOverlappingBodies();
       foreach (var body in bodies) {
         if (body == this)
           continue;
         var node = (Spatial)body;
         switch (body) {
-          case IMagnetic magnetic:
+          case IMagnetic magnetic: {
             var distance = this.GlobalTransform.origin.DistanceTo(node.GlobalTransform.origin);
             if (distance >= this.magnetInnerBound) {
-              var forceDirection = this.GlobalTransform.origin - node.GlobalTransform.origin;
-              magnetic.ApplyAttractionForce(forceDirection);
+              var forceDirection = (this.GlobalTransform.origin - node.GlobalTransform.origin).Normalized();
+              magnetic.ApplyAttractionForce(forceDirection, delta);
             }
             break;
+          }
+          case IPassiveMagnetic passiveMagnetic: {
+            var distance = this.GlobalTransform.origin.DistanceTo(node.GlobalTransform.origin);
+            if (distance >= this.magnetInnerBound) {
+              var forceDirection = (node.GlobalTransform.origin - this.GlobalTransform.origin).Normalized();
+              this.ApplyAttractionForce(forceDirection, passiveMagnetic.AttractStrength, delta);
+            }
+            break;
+          }
         }
       }
+    }
+
+    private void ApplyRepellingForce(Vector3 direction, float strength, float delta) {
+      if (this.magnet != null)
+        MoveAndSlide(direction * strength * delta);
+    }
+
+    private void ApplyAttractionForce(Vector3 direction, float strength, float delta) {
+      if (this.magnet != null)
+        MoveAndSlide(direction * strength * delta);
     }
   }
 }

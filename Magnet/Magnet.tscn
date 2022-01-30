@@ -9,6 +9,8 @@ extents = Vector3( 1, 0.40553, 1 )
 [node name="Magnet" type="RigidBody" groups=["magnet"]]
 axis_lock_linear_z = true
 script = ExtResource( 1 )
+attractStrength = 1000.0
+repelStrength = 2000.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.3615, 0, 0, 0, 1.08457, 0, 0, 0, 0.167763, 0.00344151, 0.446838, 0.0104387 )
